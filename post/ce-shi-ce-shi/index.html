@@ -4,9 +4,9 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>测试测试 | mint</title>
+<title>Promise对象 | mint</title>
 
-<link rel="shortcut icon" href="https://xixiuliu.github.io/favicon.ico?v=1597134540985">
+<link rel="shortcut icon" href="https://xixiuliu.github.io/favicon.ico?v=1600155434277">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://xixiuliu.github.io/styles/main.css">
@@ -77,7 +77,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1597134540985" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1600155434277" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -89,7 +89,7 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    测试测试
+                    Promise对象
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
@@ -98,8 +98,90 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>测试的会的话</p>
+                    <p>关于promise对象的一些事</p>
 <!-- more -->
+<p>一、什么是Promise<br>
+• Promise 对象代表了未来将要发生的事件，用来传递异步操作的消息。<br>
+• Promise 对象代表一个目前还不可用，但是在未来的某个时间点可以被解析的值。<br>
+• Promise对象代表了一个异步操作的最终完成或者失败。<br>
+总结：以上的几条定义的总结，我们可以看到几个关键字  异步 未来  结果 。<br>
+总结来说就是，代表了一个异步操作，未来会返回的结果。<br>
+二、为什么要用Promise<br>
+在不使用Promise对象的时候，我们的异步回调是以下这种调用方式。<br>
+// 回调金字塔<br>
+asyncOperation(function(data){<br>
+// 处理 <code>data</code><br>
+anotherAsync(function(data2){<br>
+// 处理 <code>data2</code><br>
+yetAnotherAsync(function(){<br>
+// 完成<br>
+});<br>
+});<br>
+});<br>
+在使用了Promise对象之后，我们就可以用以下同步的方式来书写异步的代码，可以使我们的逻辑更加清晰明了。<br>
+promiseSomething()<br>
+.then(function(data){<br>
+// 函数promiseSomething的返回结果<br>
+// 关于data的逻辑代码<br>
+return anotherAsync();<br>
+})<br>
+.then(function(data2){<br>
+// 是函数anotherAsync的返回结果<br>
+// 关于data2的逻辑代码<br>
+return yetAnotherAsync();<br>
+})<br>
+.then(function(){<br>
+// 函数yetAnotherAsync的返回结果<br>
+// 完成<br>
+});<br>
+//以此类推，还可以有多个异步函数<br>
+三、怎么去实现一个Promise<br>
+简单解释，其实promise就是三个状态。利用观察者模式的编程思想，只需要通过特定书写方式注册对应状态的事件处理函数，然后更新状态，调用注册过的处理函数即可。<br>
+这个特定方式就是then，done，fail，always…等方法，更新状态就是resolve、reject方法。<br>
+const PENDING = 'pending';<br>
+const FULFILLED = 'fulfilled';<br>
+const REJECTED = 'rejected';<br>
+function newPromise(fn) {<br>
+let self = this;<br>
+self.state = PENDING;<br>
+function resolve(value) {<br>
+if (self.state === PENDING) {<br>
+self.state = FULFILLED;<br>
+}<br>
+}<br>
+function reject(reason) {<br>
+if (self.state === PENDING) {<br>
+self.state = REJECTED;<br>
+}<br>
+}<br>
+try {<br>
+fn(resolve, reject)<br>
+} catch (reason) {<br>
+reject(reason)<br>
+}<br>
+}<br>
+newPromise.prototype.then = function(onFuifilled, onRejected) {<br>
+let self = this;<br>
+if (self.state === FULFILLED) {<br>
+onFuifilled(self.value);<br>
+}<br>
+if (self.state === REJECTED) {<br>
+onRejected(self.reason);<br>
+}<br>
+};<br>
+module.exports = newPromise;<br>
+四、其他的选择<br>
+async...await</p>
+<ol>
+<li>是为了解决什么问题<br>
+为了解决回调地狱的问题。在这之前，可以用回调函数或Promise来实现异步加载，但是这两种方式对于单个或几个来说不嫌繁琐。但是如果是多个的话，就很麻烦了。所以出现了async和await</li>
+<li>它是什么<br>
+是ES6的语法糖（语法糖是指：在计算机语言中添加的某种语法，对语言的功能没有影响，只是为了更方便使用）</li>
+<li>怎么用<br>
+async定义了一个异步函数，但是在这个函数中的代码是同步还是异步不受限制。也就是说，有async的函数中完全可以不写await<br>
+反之，如果函数中有await，那么包含他的函数必须用async声明。<br>
+还有一点就是，await后面到底等待的是什么。其实是个Promise对象，如果不是一个Promise对象，也会强制转换成Promise对象返回。</li>
+</ol>
 
                 </div>
             </article>
@@ -114,7 +196,7 @@
         
 
         <div class="site-footer gt-c-content-color-first">
-    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="slogan gt-c-content-color-first">你想宿醉街头，却发现，人们走向你，然后路过你。</div>
     <div class="social-container">
         
             

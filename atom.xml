@@ -2,23 +2,30 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xixiuliu.github.io</id>
     <title>mint</title>
-    <updated>2020-08-11T08:51:40.807Z</updated>
+    <updated>2020-09-15T07:37:20.977Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xixiuliu.github.io"/>
     <link rel="self" href="https://xixiuliu.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>你想宿醉街头，却发现，人们走向你，然后路过你。</subtitle>
     <logo>https://xixiuliu.github.io/images/avatar.png</logo>
     <icon>https://xixiuliu.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, mint</rights>
     <entry>
-        <title type="html"><![CDATA[测试测试]]></title>
+        <title type="html"><![CDATA[图片]]></title>
+        <id>https://xixiuliu.github.io/post/tu-pian/</id>
+        <link href="https://xixiuliu.github.io/post/tu-pian/">
+        </link>
+        <updated>2020-09-15T07:36:53.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Promise对象]]></title>
         <id>https://xixiuliu.github.io/post/ce-shi-ce-shi/</id>
         <link href="https://xixiuliu.github.io/post/ce-shi-ce-shi/">
         </link>
         <updated>2020-08-11T08:15:57.000Z</updated>
-        <summary type="html"><![CDATA[<p>测试的会的话</p>
+        <summary type="html"><![CDATA[<p>关于promise对象的一些事</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>测试的会的话</p>
+        <content type="html"><![CDATA[<p>关于promise对象的一些事</p>
 ]]></content>
     </entry>
 </feed>
